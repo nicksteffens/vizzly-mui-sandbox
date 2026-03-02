@@ -8,8 +8,12 @@ on:
     branches:
       - main
 
+env:
+  VIZZLY_TOKEN: ${{ secrets.VIZZLY_TOKEN }}
+  VIZZLY_PARALLEL_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+
 jobs:
-  visual-tests:
+  storybook-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,10 +31,31 @@ jobs:
 
       - name: Storybook visual tests
         run: npm run vizzly:storybook
-        env:
-          VIZZLY_TOKEN: ${{ secrets.VIZZLY_TOKEN }}
+
+  cypress-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Cypress component visual tests
-        run: npx vizzly tdd run "npx cypress run --component -q"
-        env:
-          VIZZLY_TOKEN: ${{ secrets.VIZZLY_TOKEN }}
+        run: npx vizzly run "npx cypress run --component -q"
+
+  finalize-build:
+    needs: [storybook-tests, cypress-tests]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Finalize build
+        run: npx vizzly finalize "${{ env.VIZZLY_PARALLEL_ID }}"
