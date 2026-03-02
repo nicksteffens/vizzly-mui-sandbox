@@ -58,4 +58,4 @@ jobs:
           node-version: '22'
 
       - name: Finalize build
-        run: npx vizzly finalize "${{ env.VIZZLY_PARALLEL_ID }}"
+        run: npx @vizzly-testing/cli finalize "${{ env.VIZZLY_PARALLEL_ID }}"
