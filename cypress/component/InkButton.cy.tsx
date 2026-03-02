@@ -18,4 +18,16 @@ describe('<InkButton />', () => {
     cy.get('button').should('be.disabled');
     cy.vizzlySnapshot();
   });
+
+  it('renders large size', () => {
+    cy.mount(<InkButton size="large">Large</InkButton>);
+    cy.get('button').should('have.class', 'MuiButton-sizeLarge');
+    cy.vizzlySnapshot();
+  });
+
+  it('renders small size', () => {
+    cy.mount(<InkButton size="small">Small</InkButton>);
+    cy.get('button').should('have.class', 'MuiButton-sizeSmall');
+    cy.vizzlySnapshot();
+  });
 });
