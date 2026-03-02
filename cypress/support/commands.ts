@@ -1,6 +1,3 @@
-import { vizzlyScreenshot } from '@vizzly-testing/cli/client';
-import { join } from 'path';
-
 Cypress.Commands.add('vizzlySnapshot', (name?: string, options: { screenshotOptions?: object; properties?: object } = {}) => {
   let label = cy.state('runnable').fullTitle();
   if (name) label += ` - ${name}`;
@@ -11,16 +8,20 @@ Cypress.Commands.add('vizzlySnapshot', (name?: string, options: { screenshotOpti
     capture: 'viewport',
     ...(options.screenshotOptions ?? {}),
   }).then(() => {
-    const screenshotPath = join(
-      Cypress.config('screenshotsFolder') as string,
+    const screenshotPath = [
+      Cypress.config('screenshotsFolder'),
       Cypress.spec.name,
-      `${safeName}.png`
-    );
+      `${safeName}.png`,
+    ].join('/');
 
-    return vizzlyScreenshot(label, screenshotPath, {
-      browser: Cypress.browser.name,
-      viewport: `${Cypress.config('viewportWidth')}x${Cypress.config('viewportHeight')}`,
-      ...(options.properties ?? {}),
+    return cy.task('vizzlyScreenshot', {
+      label,
+      screenshotPath,
+      properties: {
+        browser: Cypress.browser.name,
+        viewport: `${Cypress.config('viewportWidth')}x${Cypress.config('viewportHeight')}`,
+        ...(options.properties ?? {}),
+      },
     });
   });
 });
