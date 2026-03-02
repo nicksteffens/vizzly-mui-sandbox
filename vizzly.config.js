@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   comparison: {
     threshold: 2.0,
   },

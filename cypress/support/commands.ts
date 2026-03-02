@@ -1,7 +1,6 @@
 import { vizzlyScreenshot } from '@vizzly-testing/cli/client';
 import { join } from 'path';
 
-// Auto-generates snapshot name from test title, matching our Percy convention
 Cypress.Commands.add('vizzlySnapshot', (name?: string, options: { screenshotOptions?: object; properties?: object } = {}) => {
   let label = cy.state('runnable').fullTitle();
   if (name) label += ` - ${name}`;

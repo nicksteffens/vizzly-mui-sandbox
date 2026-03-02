@@ -1,7 +1,6 @@
 {
   "name": "vizzly-mui-sandbox",
   "version": "1.0.0",
-  "type": "module",
   "description": "Sandbox for testing Vizzly visual regression with MUI + Storybook",
   "scripts": {
     "storybook": "storybook dev -p 6006",

@@ -6,6 +6,5 @@ export default defineConfig({
       framework: 'react',
       bundler: 'vite',
     },
-    screenshotsFolder: 'cypress/screenshots',
   },
 });
