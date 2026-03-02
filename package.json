@@ -6,9 +6,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "vizzly:storybook": "storybook build && vizzly storybook ./storybook-static",
+    "vizzly:cypress": "vizzly tdd run \"cypress run --component -q\"",
+    "vizzly:all": "storybook build && VIZZLY_PARALLEL_ID=$(git rev-parse HEAD) vizzly storybook ./storybook-static && VIZZLY_PARALLEL_ID=$(git rev-parse HEAD) vizzly run \"cypress run --component -q\" && vizzly finalize $(git rev-parse HEAD)",
     "test": "cypress run --component -q",
-    "test:dev": "cypress open --component",
-    "vizzly:cypress": "vizzly tdd run \"cypress run --component -q\""
+    "test:dev": "cypress open --component"
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",
