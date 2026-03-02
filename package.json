@@ -7,7 +7,8 @@
     "build-storybook": "storybook build",
     "vizzly:storybook": "storybook build && vizzly storybook ./storybook-static",
     "test": "cypress run --component -q",
-    "test:dev": "cypress open --component"
+    "test:dev": "cypress open --component",
+    "vizzly:cypress": "vizzly tdd run \"cypress run --component -q\""
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",

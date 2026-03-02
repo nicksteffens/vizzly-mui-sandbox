@@ -2,7 +2,8 @@ Cypress.Commands.add('vizzlySnapshot', (name?: string, options: { screenshotOpti
   let label = cy.state('runnable').fullTitle();
   if (name) label += ` - ${name}`;
 
-  const safeName = label.replace(/[<>]/g, '').replace(/\s+/g, '-');
+  label = label.replace(/[<>/]/g, '').replace(/\s+/g, ' ').trim();
+  const safeName = label.replace(/\s+/g, '-');
 
   cy.screenshot(safeName, {
     capture: 'viewport',
@@ -14,7 +15,7 @@ Cypress.Commands.add('vizzlySnapshot', (name?: string, options: { screenshotOpti
       `${safeName}.png`,
     ].join('/');
 
-    return cy.task('vizzlyScreenshot', {
+    cy.task('vizzlyScreenshot', {
       label,
       screenshotPath,
       properties: {
