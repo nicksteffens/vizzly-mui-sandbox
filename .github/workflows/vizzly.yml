@@ -25,7 +25,12 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install chromium --with-deps
 
-      - name: Run Vizzly visual tests
+      - name: Storybook visual tests
         run: npm run vizzly:storybook
+        env:
+          VIZZLY_TOKEN: ${{ secrets.VIZZLY_TOKEN }}
+
+      - name: Cypress component visual tests
+        run: npx vizzly tdd run "npx cypress run --component -q"
         env:
           VIZZLY_TOKEN: ${{ secrets.VIZZLY_TOKEN }}
