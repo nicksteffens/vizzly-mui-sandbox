@@ -21,3 +21,11 @@ export const Secondary: Story = {
 export const Disabled: Story = {
   args: { children: 'Disabled', disabled: true },
 };
+
+export const Large: Story = {
+  args: { children: 'Large', size: 'large' },
+};
+
+export const Small: Story = {
+  args: { children: 'Small', size: 'small' },
+};
